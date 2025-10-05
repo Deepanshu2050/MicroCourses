@@ -1,5 +1,6 @@
 import './App.css'
 import { useState } from 'react'
+import { Outlet } from 'react-router-dom'
 import { useAuth } from './state/AuthContext.jsx'
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:4000/api'
@@ -22,22 +23,25 @@ function App() {
   const logout = () => { setToken(''); setRole('learner') }
 
   return (
-    <div style={{ padding: 12, borderBottom: '1px solid #ddd', display: 'flex', gap: 8, alignItems: 'center' }}>
-      {token ? (
-        <>
-          <span>Logged in as {role}</span>
-          <button onClick={logout}>Logout</button>
-        </>
-      ) : (
-        <>
-          <input placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
-          <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-          <input placeholder="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
-          <button onClick={signup}>Signup</button>
-          <button onClick={login}>Login</button>
-        </>
-      )}
-    </div>
+    <>
+      <div style={{ padding: 12, borderBottom: '1px solid #ddd', display: 'flex', gap: 8, alignItems: 'center' }}>
+        {token ? (
+          <>
+            <span>Logged in as {role}</span>
+            <button onClick={logout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <input placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
+            <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+            <input placeholder="Password" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+            <button onClick={signup}>Signup</button>
+            <button onClick={login}>Login</button>
+          </>
+        )}
+      </div>
+      <Outlet />
+    </>
   )
 }
 
